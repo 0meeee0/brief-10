@@ -19,6 +19,14 @@
             case "login":
                 $user->log_in();
                 break;
+
+            case "signup":
+                include "view/register.php";
+                break;
+
+            case "register":
+                $user->sign_up();
+                break;
         }
     }
     else{

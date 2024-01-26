@@ -1,4 +1,6 @@
-
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +68,10 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="" class="nav-item nav-link text-danger">Dashboard</a>
+                        <!-- <?= $_SESSION['user_id']?> -->
+			            <?php if(isset($_SESSION['user_id']) && ($_SESSION['client'] == 'admin')) : ?>
+                            <a href="" class="nav-item nav-link text-danger">Dashboard</a>
+                        <?php endif;?>
                         <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
                     </div>
                 </div>

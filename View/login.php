@@ -24,7 +24,7 @@
             </div>
             <div class="flex justify-between">
                 <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Login</button>
-                <a href="index.php?action=register" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Register</a>
+                <a href="index.php?action=signup" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Register</a>
 
             </div>
         </form>

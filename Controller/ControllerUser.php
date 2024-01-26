@@ -13,8 +13,7 @@
         function sign_up(){
             extract($_POST);
             $usersDAO = new UserDao();
-            var_dump($username, $email, $password);
-            $usersDAO->singup($username, $email, $password);
+            $usersDAO->singup($login, $email, $password);
             include 'view/register.php';
         }
     }

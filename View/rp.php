@@ -1,71 +1,71 @@
 <?php
-session_start();
-include 'config\Connection.php';
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// session_start();
+// include 'config\Connection.php';
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+// require 'PHPMailer/src/Exception.php';
+// require 'PHPMailer/src/PHPMailer.php';
+// require 'PHPMailer/src/SMTP.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize user inputs
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $newPassword = password_hash(filter_var($_POST['new_password']), PASSWORD_DEFAULT);
+    // $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    // $newPassword = password_hash(filter_var($_POST['new_password']), PASSWORD_DEFAULT);
 
-    try {
-        // Check if the email exists in the database
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // try {
+    //     // Check if the email exists in the database
+    //     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+    //     $stmt->bindParam(':email', $email);
+    //     $stmt->execute();
+    //     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            // Generate a random token for email verification
-            $token = bin2hex(random_bytes(32));
+    //     if ($user) {
+    //         // Generate a random token for email verification
+    //         $token = bin2hex(random_bytes(32));
 
-            // Update the user's password reset token in the database
-            $updateTokenStmt = $pdo->prepare("UPDATE users SET reset_token = :reset_token WHERE user_id = :user_id");
-            $updateTokenStmt->bindParam(':reset_token', $token);
-            $updateTokenStmt->bindParam(':user_id', $user['user_id']);
-            $updateTokenStmt->execute();
+    //         // Update the user's password reset token in the database
+    //         $updateTokenStmt = $pdo->prepare("UPDATE users SET reset_token = :reset_token WHERE user_id = :user_id");
+    //         $updateTokenStmt->bindParam(':reset_token', $token);
+    //         $updateTokenStmt->bindParam(':user_id', $user['user_id']);
+    //         $updateTokenStmt->execute();
 
-            // Send email with reset link using PHPMailer
-            $mail = new PHPMailer(true);
+    //         // Send email with reset link using PHPMailer
+    //         $mail = new PHPMailer(true);
 
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'mehdi74.id@gmail.com';
-            $mail->Password = 'somt ihut xmcb xfev'; 
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+    //         $mail->isSMTP();
+    //         $mail->Host = 'smtp.gmail.com';
+    //         $mail->SMTPAuth = true;
+    //         $mail->Username = 'mehdi74.id@gmail.com';
+    //         $mail->Password = 'somt ihut xmcb xfev'; 
+    //         $mail->SMTPSecure = 'tls';
+    //         $mail->Port = 587;
 
-            $mail->setFrom('mehdi74.id@gmail.com', 'Password Token');
+    //         $mail->setFrom('mehdi74.id@gmail.com', 'Password Token');
 
-            $mail->addAddress($email);
+    //         $mail->addAddress($email);
 
-            $mail->isHTML(true);
-            $mail->Subject = 'Password Reset';
-            $mail->Body = "Click the following link to reset your password: http://localhost/cle/rp.php?token=$token";
-            $updatePassStmt = $pdo->prepare("UPDATE users SET password = :new_password WHERE user_id = :user_id");
-            $updatePassStmt->bindParam(':new_password', $newPassword);
-            $updatePassStmt->bindParam(':user_id', $user['user_id']);
-            $updatePassStmt->execute();
+    //         $mail->isHTML(true);
+    //         $mail->Subject = 'Password Reset';
+    //         $mail->Body = "Click the following link to reset your password: http://localhost/cle/rp.php?token=$token";
+    //         $updatePassStmt = $pdo->prepare("UPDATE users SET password = :new_password WHERE user_id = :user_id");
+    //         $updatePassStmt->bindParam(':new_password', $newPassword);
+    //         $updatePassStmt->bindParam(':user_id', $user['user_id']);
+    //         $updatePassStmt->execute();
 
-            $mail->send();
+    //         $mail->send();
 
-            echo "Password reset link sent to your email!";
-        } else {
-            // Email not found
-            echo "Invalid email address";
-        }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    } catch (Exception $e) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
-    }
-}
+    //         echo "Password reset link sent to your email!";
+    //     } else {
+    //         // Email not found
+    //         echo "Invalid email address";
+    //     }
+    // } catch (PDOException $e) {
+    //     echo "Error: " . $e->getMessage();
+    // } catch (Exception $e) {
+    //     echo "Mailer Error: " . $mail->ErrorInfo;
+    // }
+// }
 ?>
 
 <!DOCTYPE html>
