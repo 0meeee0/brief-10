@@ -1,5 +1,5 @@
 <?php
-require_once("Model\config\Connection.php");
+require_once "config\Connection.php";
 
 class CityDao {
     private $db;

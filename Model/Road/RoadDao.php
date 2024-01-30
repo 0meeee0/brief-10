@@ -1,5 +1,5 @@
 <?php
-require_once("Model\config\Connection.php");
+require_once "config\Connection.php";
 require_once("Model\Road\ClassRoad.php");
 
 class RoadDao {
@@ -25,6 +25,21 @@ class RoadDao {
         $query = "INSERT INTO Road VALUES (" . $road->getDistance() . ", '" . $road->getDuration() . "', '" . $road->getStartCity() . "', '" . $road->getEndCity() . "')";
         $stmt = $this->db->query($query);
         $stmt->execute();
+    }
+    public function getRoadByCity($startCity, $endCity)
+    {
+        $query = "SELECT * FROM road WHERE startcity = :startcity AND endcity = :endcity";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':startcity', $startCity);
+        $stmt->bindParam(':endcity', $endCity);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return new Road($result["distance"], $result["duration"], $result["startcity"], $result["endcity"]);
+        } else {
+            return null;
+        }
     }
 
     public function update_road($road){

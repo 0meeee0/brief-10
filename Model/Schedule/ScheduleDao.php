@@ -1,5 +1,5 @@
 <?php
-require_once("Model\config\Connection.php");
+require_once "config\Connection.php";
 require_once("Model\Schedule\ClassSchedule.php");
 
 class ScheduleDao {
@@ -45,7 +45,28 @@ class ScheduleDao {
         $stmt = $this->db->query($query);
         $stmt->execute();
     }
+    public function getScheduleById($id)
+    {
+        $query = "SELECT * FROM article WHERE article_id = :article_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':article_id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if ($result) {
+            return new Schedule($ $result["id"],
+            $result["date"],
+            $result["departuretime"],
+            $result["arrivaltime"],
+            $result["availableseats"],
+            $result["price"],
+            $result["busnumber"],
+            $result["startcity"],
+            $result["endcity"]);
+        } else {
+            return null;
+        }
+    }
     public function update_schedule($schedule){
         $query = "UPDATE Schedule SET 
             date = '" . $schedule->getDate() . "',

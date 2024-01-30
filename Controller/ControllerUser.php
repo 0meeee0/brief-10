@@ -16,6 +16,11 @@
             $usersDAO->singup($login, $email, $password);
             include 'view/register.php';
         }
+        function resetPassword(){
+            extract($_POST);
+            $usersDAO = new UserDAO();
+            $usersDAO->resetPassword($email, $newPassword);
+        }
     }
 
 ?>

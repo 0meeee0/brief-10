@@ -81,7 +81,7 @@
 <body class="bg-red-200 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded shadow-md w-96">
         <h2 class="text-2xl font-semibold mb-4">Password Reset</h2>
-        <form method="post" class="space-y-4">
+        <form action="?action=reset" method="post" class="space-y-4">
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
                 <input type="text" name="email" required class="mt-1 p-2 w-full border rounded">
@@ -93,7 +93,7 @@
             </div>
             <button type="submit" class="bg-red-400 text-white py-2 px-4 rounded hover:bg-red-700">Confirm</button>
         </form>
-        <a href="login.php">Back to Login</a>
+        <a href="?action=log_in">Back to Login</a>
     </div>
 </body>
 
